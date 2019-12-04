@@ -293,39 +293,53 @@ class Parser extends \Phplrt\Parser\Parser implements
     {
         $offset = $token->getOffset();
         switch (true) {
-                case $state === 1:
-                return new \Serafim\Json5\Ast\ObjectNode($offset, $children);                break;
-                case $state === 12:
-                return new \Serafim\Json5\Ast\ObjectMemberNode($offset, ...$children);                break;
-                case $state === 2:
-                return new \Serafim\Json5\Ast\ArrayNode($offset, $children);                break;
-                case $state === 7:
-                return new \Serafim\Json5\Ast\StringNode($offset, \substr($children->getValue(), 1, -1));                break;
-                case $state === 3:
-                return new \Serafim\Json5\Ast\BooleanNode($offset,
-        $children->getName() === 'T_BOOL_TRUE'
-    );                break;
-                case $state === 4:
-                return new \Serafim\Json5\Ast\NullNode($offset);                break;
-                case $state === 22:
-                return new \Serafim\Json5\Ast\IdentifierNode($offset, $children->getValue());                break;
-                case $state === 41:
-                return \is_array($children) || $children->getName() === 'T_PLUS';                break;
-                case $state === 6:
-                return new \Serafim\Json5\Ast\InfinityNumberNode($offset, \reset($children));                break;
-                case $state === 5:
-                return new \Serafim\Json5\Ast\NotANumberNode($offset);                break;
-                case $state === 10:
-                return new \Serafim\Json5\Ast\FloatNumberNode($offset, \reset($children), \end($children)->getValue());                break;
-                case $state === 11:
-                return new \Serafim\Json5\Ast\IntNumberNode($offset, \reset($children), \end($children)->getValue());                break;
-                case $state === 9:
-                return new \Serafim\Json5\Ast\ExponentialNumberNode($offset, \reset($children), \end($children)->getValue());                break;
-                case $state === 8:
-                return new \Serafim\Json5\Ast\HexadecimalNumberNode($offset, \reset($children), \end($children)->getValue());                break;
-            }
+            case $state === 1:
+                return new \Serafim\Json5\Ast\ObjectNode($offset, $children);
+            break;
+            case $state === 12:
+                return new \Serafim\Json5\Ast\ObjectMemberNode($offset, ...$children);
+            break;
+            case $state === 2:
+                return new \Serafim\Json5\Ast\ArrayNode($offset, $children);
+            break;
+            case $state === 7:
+                return new \Serafim\Json5\Ast\StringNode($offset, \substr($children->getValue(), 1, -1));
+            break;
+            case $state === 3:
+                return new \Serafim\Json5\Ast\BooleanNode(
+                    $offset,
+                    $children->getName() === 'T_BOOL_TRUE'
+                );
+            break;
+            case $state === 4:
+                return new \Serafim\Json5\Ast\NullNode($offset);
+            break;
+            case $state === 22:
+                return new \Serafim\Json5\Ast\IdentifierNode($offset, $children->getValue());
+            break;
+            case $state === 41:
+                return \is_array($children) || $children->getName() === 'T_PLUS';
+            break;
+            case $state === 6:
+                return new \Serafim\Json5\Ast\InfinityNumberNode($offset, \reset($children));
+            break;
+            case $state === 5:
+                return new \Serafim\Json5\Ast\NotANumberNode($offset);
+            break;
+            case $state === 10:
+                return new \Serafim\Json5\Ast\FloatNumberNode($offset, \reset($children), \end($children)->getValue());
+            break;
+            case $state === 11:
+                return new \Serafim\Json5\Ast\IntNumberNode($offset, \reset($children), \end($children)->getValue());
+            break;
+            case $state === 9:
+                return new \Serafim\Json5\Ast\ExponentialNumberNode($offset, \reset($children), \end($children)->getValue());
+            break;
+            case $state === 8:
+                return new \Serafim\Json5\Ast\HexadecimalNumberNode($offset, \reset($children), \end($children)->getValue());
+            break;
+        }
 
         return null;
     }
-
 }

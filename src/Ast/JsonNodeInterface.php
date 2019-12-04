@@ -26,4 +26,3 @@ interface JsonNodeInterface extends NodeInterface
      */
     public function reduce(int $options, int $depth, int $maxDepth);
 }
-
