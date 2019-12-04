@@ -17,8 +17,9 @@ The JSON5 Data Interchange Format (JSON5) is a superset of [JSON] that aims to
 alleviate some of the limitations of JSON by expanding its syntax to include
 some productions from [ECMAScript 5.1].
 
-This JavaScript library is the official reference implementation for JSON5
-parsing and serialization libraries.
+This PHP library for JSON5 parsing and serialization based on 
+[pp2 grammar](https://github.com/SerafimArts/json5/blob/master/resources/grammar.pp2) 
+and contains full AST building process.
 
 [JSON]: https://tools.ietf.org/html/rfc7159
 [ECMAScript 5.1]: https://www.ecma-international.org/ecma-262/5.1/
