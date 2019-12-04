@@ -1,0 +1,171 @@
+/**
+ * --------------------------------------------------------------------------
+ *  JSON5 Grammar
+ * --------------------------------------------------------------------------
+ *
+ * The JSON5 Data Interchange Format (JSON5) is a superset of JSON that
+ * aims to alleviate some of the limitations of JSON by expanding its
+ * syntax to include some productions from ECMAScript 5.1.
+ *
+ * Similar to JSON, JSON5 can represent four primitive types
+ * (strings, numbers, Booleans, and null) and two structured types
+ * (objects and arrays).
+ *
+ * A string is a sequence of zero or more Unicode characters. Note that
+ * this citation references the latest version of Unicode rather than a
+ * specific release. It is not expected that future changes in the Unicode
+ * specification will impact the syntax of JSON5.
+ *
+ * An object is an unordered collection of zero or more name/value pairs,
+ * where a name is a string or identifier and a value is a string, number,
+ * Boolean, null, object, or array.
+ *
+ * An array is an ordered sequence of zero or more values.
+ *
+ * @see https://spec.json5.org/
+ * @see http://www.unicode.org/versions/Unicode11.0.0/
+ * @see https://tools.ietf.org/html/rfc7159
+ * @see https://www.ecma-international.org/ecma-262/5.1/
+ *
+ */
+
+%include lexemes.pp2
+
+#Json
+  : Value()
+  ;
+
+Value
+  : Object()
+  | Array()
+  | Boolean()
+  | Null()
+  | NaN()
+  | Inf()
+  | String()
+  | Hex()
+  | Exponential()
+  | Float()
+  | Int()
+  ;
+
+
+// { key: val, key: val }
+// ^^^^^^^^^^^^^^^^^^^^^^
+Object -> {
+    return new \Serafim\Json5\Ast\ObjectNode($offset, $children);
+}
+  : ::T_BRACE_OPEN::
+      ( ObjectMember() (::T_COMMA:: ObjectMember())* ::T_COMMA::? )?
+    ::T_BRACE_CLOSE::
+  ;
+
+// { key: val, key: val }
+//   ^^^^^^^^
+ObjectMember -> {
+    return new \Serafim\Json5\Ast\ObjectMemberNode($offset, ...$children);
+}
+  : (String() | Identifier()) ::T_COLON:: Value()
+  ;
+
+// [ a, b, c ]
+// ^^^^^^^^^^^
+Array -> {
+    return new \Serafim\Json5\Ast\ArrayNode($offset, $children);
+}
+  : ::T_BRACKET_OPEN::
+      ( Value() (::T_COMMA:: Value())* ::T_COMMA::? )?
+    ::T_BRACKET_CLOSE::
+  ;
+
+// "string"
+// ^^^^^^^
+String -> {
+    return new \Serafim\Json5\Ast\StringNode($offset, \substr($children->getValue(), 1, -1));
+}
+  : <T_DOUBLE_QUOTED_STRING>
+  | <T_SINGLE_QUOTED_STRING>
+  ;
+
+// true false
+// ^^^^ ^^^^^
+Boolean -> {
+    return new \Serafim\Json5\Ast\BooleanNode($offset,
+        $children->getName() === 'T_BOOL_TRUE'
+    );
+}
+  : <T_BOOL_TRUE>
+  | <T_BOOL_FALSE>
+  ;
+
+// null
+// ^^^^
+Null -> {
+    return new \Serafim\Json5\Ast\NullNode($offset);
+}
+  : <T_NULL>
+  ;
+
+// identifier
+// ^^^^^^^^^^
+Identifier -> {
+    return new \Serafim\Json5\Ast\IdentifierNode($offset, $children->getValue());
+}
+  : <T_IDENTIFIER>
+  ;
+
+// +42 -23
+// ^   ^
+Signed -> {
+    return \is_array($children) || $children->getName() === 'T_PLUS';
+}
+  : (<T_PLUS> | <T_MINUS>)?
+  ;
+
+// +42e3 -23e-4
+//    ^^    ^^^
+Inf -> {
+    return new \Serafim\Json5\Ast\InfinityNumberNode($offset, \reset($children));
+}
+  : Signed() ::T_INF::
+  ;
+
+// NaN
+// ^^^
+NaN -> {
+    return new \Serafim\Json5\Ast\NotANumberNode($offset);
+}
+  : <T_NAN>
+  ;
+
+// 0.4, .42, 42.
+// ^^^  ^^^  ^^^
+Float -> {
+    return new \Serafim\Json5\Ast\FloatNumberNode($offset, \reset($children), \end($children)->getValue());
+}
+  : Signed() (<T_FLOAT_LD_NUMBER> | <T_FLOAT_TG_NUMBER>)
+  ;
+
+// 42
+// ^^
+Int -> {
+    return new \Serafim\Json5\Ast\IntNumberNode($offset, \reset($children), \end($children)->getValue());
+}
+  : Signed() <T_INT_NUMBER>
+  ;
+
+// 42e3  .4e3
+//   ^^    ^^
+Exponential -> {
+    return new \Serafim\Json5\Ast\ExponentialNumberNode($offset, \reset($children), \end($children)->getValue());
+}
+  : (Float() | Int()) <T_EXPONENT_PART>
+  ;
+
+// 0xDEADBEEF
+// ^^^^^^^^^^
+Hex -> {
+    return new \Serafim\Json5\Ast\HexadecimalNumberNode($offset, \reset($children), \end($children)->getValue());
+}
+  : Signed() <T_HEX_NUMBER>
+  ;

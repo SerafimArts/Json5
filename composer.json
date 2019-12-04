@@ -1,0 +1,61 @@
+{
+    "name": "serafim/json5",
+    "description": "JSON5 parser",
+    "license": "MIT",
+    "keywords": [
+        "json",
+        "parsing",
+        "read",
+        "write",
+        "decode",
+        "encode",
+        "json5"
+    ],
+    "homepage": "https://github.com/SerafimArts/json5",
+    "support": {
+        "issues": "https://github.com/SerafimArts/json5/issues",
+        "source": "https://github.com/SerafimArts/json5"
+    },
+    "authors": [
+        {
+            "name": "Kirill Nesmeyanov",
+            "email": "nesk@xakep.ru"
+        }
+    ],
+    "require": {
+        "php": "^7.4|^8.0",
+        "ext-json": "*",
+        "phplrt/parser": "^2.2",
+        "phplrt/lexer": "^2.2",
+        "phplrt/position": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Serafim\\Json5\\": "src"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "require-dev": {
+        "symfony/console": "^5.0",
+        "phplrt/compiler": "^2.2",
+        "vimeo/psalm": "^3.6",
+        "phpunit/phpunit": "^7.2|^8.0",
+        "squizlabs/php_codesniffer": "^3.5",
+        "sensiolabs/security-checker": "^6.0",
+        "symfony/var-dumper": "~4.3|~5.0"
+    },
+    "autoload-dev": {
+        "Serafim\\Json5\\Tests": "tests"
+    },
+    "scripts": {
+        "psalm": "@php vendor/vimeo/psalm/psalm",
+        "phpunit": "@php vendor/phpunit/phpunit/phpunit --testdox --debug -d tests",
+        "security": "@php vendor/sensiolabs/security-checker/security-checker security:check ./composer.lock",
+        "phpcs": "@php vendor/squizlabs/php_codesniffer/bin/phpcs --standard=PSR12 --colors --encoding=utf-8 --extensions=php src tests -p",
+        "phpcbf": "@php vendor/squizlabs/php_codesniffer/bin/phpcbf -s --colors --standard=PSR12 --encoding=utf-8 --extensions=php src tests"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
