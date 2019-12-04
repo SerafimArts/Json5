@@ -19,7 +19,7 @@ some productions from [ECMAScript 5.1].
 
 This PHP library for JSON5 parsing and serialization based on 
 [pp2 grammar](https://github.com/SerafimArts/json5/blob/master/resources/grammar.pp2) 
-and contains full AST building process.
+and contains [full AST](https://github.com/SerafimArts/json5/tree/master/src/Ast) building process.
 
 [JSON]: https://tools.ietf.org/html/rfc7159
 [ECMAScript 5.1]: https://www.ecma-international.org/ecma-262/5.1/
