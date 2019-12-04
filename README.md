@@ -2,8 +2,8 @@
 
 <p align="center">
     <a href="https://travis-ci.org/SerafimArts/json5"><img src="https://travis-ci.org/SerafimArts/json5.svg?branch=master" alt="Build Status"></a>
-    <a href="https://codeclimate.com/github/SerafimArts/json5/maintainability"><img src="https://api.codeclimate.com/v1/badges/b2606e4aa0d70307198d/maintainability" /></a>
-    <a href="https://codeclimate.com/github/SerafimArts/json5/test_coverage"><img src="https://api.codeclimate.com/v1/badges/b2606e4aa0d70307198d/test_coverage" /></a>
+    <a href="https://codeclimate.com/github/SerafimArts/json5/maintainability"><img src="https://api.codeclimate.com/v1/badges/a542a7b3dbb64920069d/maintainability" /></a>
+    <a href="https://codeclimate.com/github/SerafimArts/json5/test_coverage"><img src="https://api.codeclimate.com/v1/badges/a542a7b3dbb64920069d/test_coverage" /></a>
 </p>
 
 <p align="center">
