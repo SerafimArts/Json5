@@ -8,8 +8,8 @@
 
 <p align="center">
     <a href="https://packagist.org/packages/serafim/json5"><img src="https://img.shields.io/badge/PHP-7.4+-4f5b93.svg" alt="PHP 7.4+"></a>
-    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/version" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/downloads" alt="Total Downloads"></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/version#" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/downloads#" alt="Total Downloads"></a>
     <a href="https://raw.githubusercontent.com/SerafimArts/json5/master/LICENSE.md"><img src="https://poser.pugx.org/serafim/json5/license" alt="License MIT"></a>
 </p>
 
@@ -150,7 +150,7 @@ To report bugs or request features regarding the JSON5 data format, please
 submit an issue to the [official specification
 repository](https://github.com/json5/json5-spec).
 
-To report bugs or request features regarding the JavaScript implementation of
+To report bugs or request features regarding the PHP implementation of
 JSON5, please submit an issue to this repository.
 
 ## License
