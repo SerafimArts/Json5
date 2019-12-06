@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cd8dd1270e7afb4056a73f683cdddfb2",
+    "content-hash": "3c0ebd3f4a20bc7f001d44c9b6ea1857",
     "packages": [
         {
             "name": "phplrt/ast-contracts",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/ast-contracts.git",
-                "reference": "194681e2b8a0ccc602bd44d913aff10d8f671dbb"
+                "reference": "abe4ce0a5e418adbd85365c7b974daabb7406a86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/ast-contracts/zipball/194681e2b8a0ccc602bd44d913aff10d8f671dbb",
-                "reference": "194681e2b8a0ccc602bd44d913aff10d8f671dbb",
+                "url": "https://api.github.com/repos/phplrt/ast-contracts/zipball/abe4ce0a5e418adbd85365c7b974daabb7406a86",
+                "reference": "abe4ce0a5e418adbd85365c7b974daabb7406a86",
                 "shasum": ""
             },
             "require": {
@@ -26,7 +26,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -56,20 +56,73 @@
                 "standards",
                 "tree"
             ],
-            "time": "2019-12-03T18:46:23+00:00"
+            "time": "2019-12-06T17:22:07+00:00"
         },
         {
-            "name": "phplrt/lexer",
-            "version": "2.2.4",
+            "name": "phplrt/grammar-contracts",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phplrt/lexer.git",
-                "reference": "5b9fa4e7b21071d34ad73161ad9a4f95d5f6ff8f"
+                "url": "https://github.com/phplrt/grammar-contracts.git",
+                "reference": "b9eedc123ee98f153fea869229ee46723a0219fe"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/lexer/zipball/5b9fa4e7b21071d34ad73161ad9a4f95d5f6ff8f",
-                "reference": "5b9fa4e7b21071d34ad73161ad9a4f95d5f6ff8f",
+                "url": "https://api.github.com/repos/phplrt/grammar-contracts/zipball/b9eedc123ee98f153fea869229ee46723a0219fe",
+                "reference": "b9eedc123ee98f153fea869229ee46723a0219fe",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "phplrt/lexer-contracts": "^2.3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phplrt\\Contracts\\Grammar\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill Nesmeyanov",
+                    "email": "nesk@xakep.ru"
+                }
+            ],
+            "description": "A set of phplrt grammar abstractions",
+            "homepage": "https://github.com/phplrt",
+            "keywords": [
+                "abstractions",
+                "contracts",
+                "decoupling",
+                "grammar",
+                "interfaces",
+                "interoperability",
+                "rules",
+                "standards"
+            ],
+            "time": "2019-12-06T18:00:02+00:00"
+        },
+        {
+            "name": "phplrt/lexer",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phplrt/lexer.git",
+                "reference": "3eb4764c8b7b887ecadc39b628e6800cb87a4700"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phplrt/lexer/zipball/3eb4764c8b7b887ecadc39b628e6800cb87a4700",
+                "reference": "3eb4764c8b7b887ecadc39b628e6800cb87a4700",
                 "shasum": ""
             },
             "require": {
@@ -77,17 +130,17 @@
                 "ext-pcre": "*",
                 "ext-spl": "*",
                 "php": ">=7.1.3",
-                "phplrt/lexer-contracts": "^2.2.4",
-                "phplrt/source": "^2.2.4",
+                "phplrt/lexer-contracts": "^2.3.1",
+                "phplrt/source": "^2.3.1",
                 "symfony/polyfill-php73": "~1.12"
             },
             "provide": {
-                "phplrt/lexer-contracts-implementation": "~2.1"
+                "phplrt/lexer-contracts-implementation": "~2.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -116,30 +169,29 @@
                 "token",
                 "tokenizer"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
             "name": "phplrt/lexer-contracts",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/lexer-contracts.git",
-                "reference": "a0425180f363359202e97d3865b6917ecc7523f8"
+                "reference": "06388465a2dea80a8b7bc71bfe759c3a6a972fee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/lexer-contracts/zipball/a0425180f363359202e97d3865b6917ecc7523f8",
-                "reference": "a0425180f363359202e97d3865b6917ecc7523f8",
+                "url": "https://api.github.com/repos/phplrt/lexer-contracts/zipball/06388465a2dea80a8b7bc71bfe759c3a6a972fee",
+                "reference": "06388465a2dea80a8b7bc71bfe759c3a6a972fee",
                 "shasum": ""
             },
             "require": {
-                "php": ">=7.1.3",
-                "phplrt/source-contracts": "^2.2.4"
+                "php": ">=7.1.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -173,43 +225,47 @@
                 "token",
                 "tokenizer"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T17:22:07+00:00"
         },
         {
             "name": "phplrt/parser",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/parser.git",
-                "reference": "865e2f9bab01532df943e68d739323dd763257b9"
+                "reference": "2acee33de9073c1287cff522d18d1ef6a534e999"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/parser/zipball/865e2f9bab01532df943e68d739323dd763257b9",
-                "reference": "865e2f9bab01532df943e68d739323dd763257b9",
+                "url": "https://api.github.com/repos/phplrt/parser/zipball/2acee33de9073c1287cff522d18d1ef6a534e999",
+                "reference": "2acee33de9073c1287cff522d18d1ef6a534e999",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "phplrt/ast-contracts": "^2.2.4",
-                "phplrt/lexer-contracts": "^2.2.4",
-                "phplrt/parser-contracts": "^2.2.4",
-                "phplrt/source": "^2.2.4",
+                "phplrt/ast-contracts": "^2.3.1",
+                "phplrt/grammar-contracts": "^2.3.1",
+                "phplrt/lexer-contracts": "^2.3.1",
+                "phplrt/parser-contracts": "^2.3.1",
+                "phplrt/source": "^2.3.1",
                 "symfony/polyfill-php73": "~1.12"
             },
             "provide": {
-                "phplrt/parser-contracts-implementation": "~2.1"
+                "phplrt/parser-contracts-implementation": "~2.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
                     "Phplrt\\Parser\\": "src"
-                }
+                },
+                "files": [
+                    "src/polyfill.php"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -232,31 +288,32 @@
                 "php",
                 "slr"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
             "name": "phplrt/parser-contracts",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/parser-contracts.git",
-                "reference": "c89975e25b0eabd1bfbe5ff6d8f7214df5796f9d"
+                "reference": "e0d72b8f191d04594b42f956554b1877c29e2706"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/parser-contracts/zipball/c89975e25b0eabd1bfbe5ff6d8f7214df5796f9d",
-                "reference": "c89975e25b0eabd1bfbe5ff6d8f7214df5796f9d",
+                "url": "https://api.github.com/repos/phplrt/parser-contracts/zipball/e0d72b8f191d04594b42f956554b1877c29e2706",
+                "reference": "e0d72b8f191d04594b42f956554b1877c29e2706",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "phplrt/ast-contracts": "^2.2.4",
-                "phplrt/source-contracts": "^2.2.4"
+                "phplrt/ast-contracts": "^2.3.1",
+                "phplrt/lexer-contracts": "^2.3.1",
+                "phplrt/source-contracts": "^2.3.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -289,30 +346,30 @@
                 "standards",
                 "syntax"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
             "name": "phplrt/position",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/position.git",
-                "reference": "576194e0e831062ca899ed4d52e6c556d915a4a5"
+                "reference": "dbd14c5ccd8ac440aa01a91f44bd9e294f955e9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/position/zipball/576194e0e831062ca899ed4d52e6c556d915a4a5",
-                "reference": "576194e0e831062ca899ed4d52e6c556d915a4a5",
+                "url": "https://api.github.com/repos/phplrt/position/zipball/dbd14c5ccd8ac440aa01a91f44bd9e294f955e9f",
+                "reference": "dbd14c5ccd8ac440aa01a91f44bd9e294f955e9f",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "phplrt/source": "^2.2.4"
+                "phplrt/source": "^2.3.1"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -342,28 +399,72 @@
                 "utils",
                 "visualization"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
-            "name": "phplrt/source",
-            "version": "2.2.4",
+            "name": "phplrt/runtime",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phplrt/source.git",
-                "reference": "80cd7f85dab747fc1b08bab2238c1c1a2c800ba1"
+                "url": "https://github.com/phplrt/runtime.git",
+                "reference": "b599ab0e50fd05f8dfa30bfa12bea00657122255"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/source/zipball/80cd7f85dab747fc1b08bab2238c1c1a2c800ba1",
-                "reference": "80cd7f85dab747fc1b08bab2238c1c1a2c800ba1",
+                "url": "https://api.github.com/repos/phplrt/runtime/zipball/b599ab0e50fd05f8dfa30bfa12bea00657122255",
+                "reference": "b599ab0e50fd05f8dfa30bfa12bea00657122255",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "phplrt/source-contracts": "^2.2.4"
+                "phplrt/lexer": "^2.3.1",
+                "phplrt/parser": "^2.3.1",
+                "phplrt/position": "^2.3.1",
+                "phplrt/visitor": "^2.3.1"
+            },
+            "type": "metapackage",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill Nesmeyanov",
+                    "email": "nesk@xakep.ru"
+                }
+            ],
+            "description": "A set of phplrt runtime libraries",
+            "homepage": "https://github.com/phplrt",
+            "keywords": [
+                "runtime"
+            ],
+            "time": "2019-12-06T18:00:02+00:00"
+        },
+        {
+            "name": "phplrt/source",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phplrt/source.git",
+                "reference": "7f777c93563a4b7eec1d8f9ac18d928669fdb1b2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phplrt/source/zipball/7f777c93563a4b7eec1d8f9ac18d928669fdb1b2",
+                "reference": "7f777c93563a4b7eec1d8f9ac18d928669fdb1b2",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "phplrt/source-contracts": "^2.3.1"
             },
             "provide": {
-                "phplrt/source-contracts-implementation": "~2.1"
+                "phplrt/source-contracts-implementation": "~2.3"
             },
             "require-dev": {
                 "psr/http-message": "~1.0"
@@ -371,7 +472,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -399,20 +500,20 @@
                 "fs",
                 "reader"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
             "name": "phplrt/source-contracts",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/source-contracts.git",
-                "reference": "a3dff0783ab9bb693147bae1014386b156932525"
+                "reference": "2515b42ba217865f11cf2393ccf4dcb50e10398f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/source-contracts/zipball/a3dff0783ab9bb693147bae1014386b156932525",
-                "reference": "a3dff0783ab9bb693147bae1014386b156932525",
+                "url": "https://api.github.com/repos/phplrt/source-contracts/zipball/2515b42ba217865f11cf2393ccf4dcb50e10398f",
+                "reference": "2515b42ba217865f11cf2393ccf4dcb50e10398f",
                 "shasum": ""
             },
             "require": {
@@ -421,7 +522,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -448,7 +549,56 @@
                 "read",
                 "source"
             ],
-            "time": "2019-12-03T18:46:23+00:00"
+            "time": "2019-12-06T17:22:07+00:00"
+        },
+        {
+            "name": "phplrt/visitor",
+            "version": "2.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phplrt/visitor.git",
+                "reference": "bd0599a7a00ce4fa8182a618859ca8a85152e2d6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phplrt/visitor/zipball/bd0599a7a00ce4fa8182a618859ca8a85152e2d6",
+                "reference": "bd0599a7a00ce4fa8182a618859ca8a85152e2d6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.1.3",
+                "phplrt/ast-contracts": "^2.3.1"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Phplrt\\Visitor\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kirill Nesmeyanov",
+                    "email": "nesk@xakep.ru"
+                }
+            ],
+            "description": "The phplrt visitor package",
+            "homepage": "https://github.com/phplrt",
+            "keywords": [
+                "ast",
+                "traverser",
+                "tree",
+                "visitor"
+            ],
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
             "name": "symfony/polyfill-php73",
@@ -1334,24 +1484,26 @@
         },
         {
             "name": "phplrt/compiler",
-            "version": "2.2.4",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phplrt/compiler.git",
-                "reference": "6e6df732ae6bb2001db12d537208173c42b60399"
+                "reference": "69d09bdc7c06e06f218db6c1c78867238b30f747"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/compiler/zipball/6e6df732ae6bb2001db12d537208173c42b60399",
-                "reference": "6e6df732ae6bb2001db12d537208173c42b60399",
+                "url": "https://api.github.com/repos/phplrt/compiler/zipball/69d09bdc7c06e06f218db6c1c78867238b30f747",
+                "reference": "69d09bdc7c06e06f218db6c1c78867238b30f747",
                 "shasum": ""
             },
             "require": {
+                "nikic/php-parser": "~4.3",
                 "php": ">=7.1.3",
-                "phplrt/lexer": "^2.2.4",
-                "phplrt/parser": "^2.2.4",
-                "phplrt/position": "^2.2.4",
-                "phplrt/visitor": "^2.2.4",
+                "phplrt/grammar": "^2.3.1",
+                "phplrt/lexer": "^2.3.1",
+                "phplrt/parser": "^2.3.1",
+                "phplrt/position": "^2.3.1",
+                "phplrt/visitor": "^2.3.1",
                 "symfony/polyfill-php73": "~1.12",
                 "zendframework/zend-code": "~3.0"
             },
@@ -1361,7 +1513,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
@@ -1387,35 +1539,38 @@
                 "grammar",
                 "language"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
-            "name": "phplrt/visitor",
-            "version": "2.2.4",
+            "name": "phplrt/grammar",
+            "version": "2.3.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/phplrt/visitor.git",
-                "reference": "a65278fd5e505921aa894afb9ff34e145afc0a72"
+                "url": "https://github.com/phplrt/grammar.git",
+                "reference": "6cec9282c364855290b85c8fc5a98396793598ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phplrt/visitor/zipball/a65278fd5e505921aa894afb9ff34e145afc0a72",
-                "reference": "a65278fd5e505921aa894afb9ff34e145afc0a72",
+                "url": "https://api.github.com/repos/phplrt/grammar/zipball/6cec9282c364855290b85c8fc5a98396793598ae",
+                "reference": "6cec9282c364855290b85c8fc5a98396793598ae",
                 "shasum": ""
             },
             "require": {
                 "php": ">=7.1.3",
-                "phplrt/ast-contracts": "^2.2.4"
+                "phplrt/grammar-contracts": "^2.3.1"
+            },
+            "provide": {
+                "phplrt/grammar-contracts-implementation": "~2.3"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.3.x-dev"
+                    "dev-master": "2.4.x-dev"
                 }
             },
             "autoload": {
                 "psr-4": {
-                    "Phplrt\\Visitor\\": "src"
+                    "Phplrt\\Grammar\\": "src"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -1428,15 +1583,15 @@
                     "email": "nesk@xakep.ru"
                 }
             ],
-            "description": "The phplrt visitor package",
+            "description": "The phplrt grammar package.",
             "homepage": "https://github.com/phplrt",
             "keywords": [
-                "ast",
-                "traverser",
-                "tree",
-                "visitor"
+                "asserts",
+                "grammar",
+                "parser",
+                "rules"
             ],
-            "time": "2019-12-03T19:12:45+00:00"
+            "time": "2019-12-06T18:00:02+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -1755,16 +1910,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.4.3",
+            "version": "8.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "67f9e35bffc0dd52d55d565ddbe4230454fd6a4e"
+                "reference": "3ee1c1fd6fc264480c25b6fb8285edefe1702dab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/67f9e35bffc0dd52d55d565ddbe4230454fd6a4e",
-                "reference": "67f9e35bffc0dd52d55d565ddbe4230454fd6a4e",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3ee1c1fd6fc264480c25b6fb8285edefe1702dab",
+                "reference": "3ee1c1fd6fc264480c25b6fb8285edefe1702dab",
                 "shasum": ""
             },
             "require": {
@@ -1808,7 +1963,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "8.4-dev"
+                    "dev-master": "8.5-dev"
                 }
             },
             "autoload": {
@@ -1834,7 +1989,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-11-06T09:42:23+00:00"
+            "time": "2019-12-06T05:41:38+00:00"
         },
         {
             "name": "psr/container",
@@ -2597,16 +2752,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.2",
+            "version": "3.5.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "65b12cdeaaa6cd276d4c3033a95b9b88b12701e7"
+                "reference": "557a1fc7ac702c66b0bbfe16ab3d55839ef724cb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/65b12cdeaaa6cd276d4c3033a95b9b88b12701e7",
-                "reference": "65b12cdeaaa6cd276d4c3033a95b9b88b12701e7",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/557a1fc7ac702c66b0bbfe16ab3d55839ef724cb",
+                "reference": "557a1fc7ac702c66b0bbfe16ab3d55839ef724cb",
                 "shasum": ""
             },
             "require": {
@@ -2644,7 +2799,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-10-28T04:36:32+00:00"
+            "time": "2019-12-04T04:46:47+00:00"
         },
         {
             "name": "symfony/console",

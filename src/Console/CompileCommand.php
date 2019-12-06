@@ -32,12 +32,22 @@ class CompileCommand extends Command
     /**
      * @var string
      */
-    private const OUTPUT_FQN = 'Serafim\\Json5\\Parser';
+    private const OUTPUT_GRAMMAR_FQN = 'Serafim\\Json5\\Json5Grammar';
 
     /**
      * @var string
      */
-    private const OUTPUT_PATH = __DIR__ . '/../Parser.php';
+    private const OUTPUT_GRAMMAR_PATH = __DIR__ . '/../Json5Grammar.php';
+
+    /**
+     * @var string
+     */
+    private const OUTPUT_BUILDER_FQN = 'Serafim\\Json5\\Json5Builder';
+
+    /**
+     * @var string
+     */
+    private const OUTPUT_BUILDER_PATH = __DIR__ . '/../Json5Builder.php';
 
     /**
      * @return string
@@ -59,7 +69,17 @@ class CompileCommand extends Command
     {
         $compiler = new Compiler();
         $compiler->load(File::fromPathname(self::GRAMMAR_PATHNAME));
-        $compiler->build(self::OUTPUT_FQN)->save(self::OUTPUT_PATH);
+        $assembly = $compiler->build();
+
+        \file_put_contents(
+            self::OUTPUT_BUILDER_PATH,
+            $assembly->generateBuilder(self::OUTPUT_BUILDER_FQN)
+        );
+
+        \file_put_contents(
+            self::OUTPUT_GRAMMAR_PATH,
+            $assembly->generateGrammar(self::OUTPUT_GRAMMAR_FQN)
+        );
 
         return 0;
     }

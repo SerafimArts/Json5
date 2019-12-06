@@ -49,7 +49,7 @@ class Json5 implements Json5EncoderInterface, Json5DecoderInterface
      */
     private function __construct()
     {
-        $this->parser = new Parser();
+        $this->parser = new Json5Parser();
     }
 
     /**
@@ -87,7 +87,6 @@ class Json5 implements Json5EncoderInterface, Json5DecoderInterface
      */
     public function decode(string $json, int $options = 0)
     {
-
         try {
             /** @psalm-var array<array-key, JsonNodeInterface> $result */
             $result = $this->parser->parse($json);
