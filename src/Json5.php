@@ -11,13 +11,13 @@ declare(strict_types=1);
 
 namespace Serafim\Json5;
 
+use JetBrains\PhpStorm\Language;
+use Phplrt\Contracts\Parser\ParserInterface;
+use Phplrt\Contracts\Position\PositionInterface;
+use Phplrt\Exception\RuntimeException;
 use Phplrt\Position\Position;
-use Phplrt\Position\PositionInterface;
 use Serafim\Json5\Ast\JsonNodeInterface;
 use Serafim\Json5\Exception\Json5Exception;
-use Phplrt\Contracts\Parser\ParserInterface;
-use Phplrt\Contracts\Lexer\Exception\LexerRuntimeExceptionInterface;
-use Phplrt\Contracts\Parser\Exception\ParserRuntimeExceptionInterface;
 
 /**
  * Class Json5
@@ -85,8 +85,11 @@ class Json5 implements Json5EncoderInterface, Json5DecoderInterface
      * {@inheritDoc}
      * @throws \Throwable
      */
-    public function decode(string $json, int $options = 0)
-    {
+    public function decode(
+        #[Language('JSON5')]
+        string $json,
+        int $options = 0
+    ) {
         try {
             /** @psalm-var array<array-key, JsonNodeInterface> $result */
             $result = $this->parser->parse($json);
@@ -96,27 +99,11 @@ class Json5 implements Json5EncoderInterface, Json5DecoderInterface
             }
 
             throw new \RuntimeException('There is an internal error occurred');
-        } catch (ParserRuntimeExceptionInterface $e) {
-            $position = Position::fromOffset($json, $e->getNode()->getOffset());
+        } catch (RuntimeException $e) {
+            $token = $e->getToken();
+            $position = Position::fromOffset($json, $token->getOffset());
 
             throw $this->json5Error($e, $position);
-        } catch (LexerRuntimeExceptionInterface $e) {
-            $position = Position::fromOffset($json, $e->getToken()->getOffset());
-
-            throw $this->json5Error($e, $position);
-        }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function encode($value, int $options = 0): string
-    {
-        try {
-            // TODO
-            return \json_encode($value, $options | \JSON_THROW_ON_ERROR, $this->depth);
-        } catch (\Throwable $e) {
-            throw new Json5Exception($e->getMessage());
         }
     }
 
@@ -137,5 +124,18 @@ class Json5 implements Json5EncoderInterface, Json5DecoderInterface
         );
 
         return new Json5Exception($message);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function encode($value, int $options = 0): string
+    {
+        try {
+            // TODO
+            return \json_encode($value, $options | \JSON_THROW_ON_ERROR, $this->depth);
+        } catch (\Throwable $e) {
+            throw new Json5Exception($e->getMessage());
+        }
     }
 }

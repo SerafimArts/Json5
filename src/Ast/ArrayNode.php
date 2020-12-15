@@ -11,8 +11,6 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
-use Serafim\Json5\Exception\Json5Exception;
-
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
  */

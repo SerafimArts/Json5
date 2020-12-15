@@ -15,8 +15,6 @@ use Phplrt\Lexer\Lexer;
 use Phplrt\Lexer\Token\Composite;
 use Phplrt\Contracts\Lexer\LexerInterface;
 use Phplrt\Contracts\Lexer\TokenInterface;
-use Phplrt\Contracts\Lexer\Exception\LexerExceptionInterface;
-use Phplrt\Contracts\Lexer\Exception\LexerRuntimeExceptionInterface;
 
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
@@ -247,5 +245,16 @@ final class StringNode extends Node
 
             throw $e;
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function __debugInfo(): array
+    {
+        return [
+            'value' => $this->value,
+            'offset' => $this->getOffset(),
+        ];
     }
 }

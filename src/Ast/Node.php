@@ -87,4 +87,15 @@ abstract class Node implements JsonNodeInterface
     {
         return $isPositive ? $value : -$value;
     }
+
+    /**
+     * @return mixed
+     */
+    public function __debugInfo(): array
+    {
+        $result = \get_object_vars($this);
+        $result['offset'] = $this->offset;
+
+        return $result;
+    }
 }

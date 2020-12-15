@@ -13,59 +13,65 @@ declare(strict_types=1);
 
 namespace Serafim\Json5;
 
-use Phplrt\Lexer\Lexer;
-use Phplrt\Parser\Parser;
-use Phplrt\Position\Position;
 use Phplrt\Contracts\Lexer\LexerInterface;
-use Serafim\Json5\Exception\Json5Exception;
 use Phplrt\Contracts\Parser\ParserInterface;
-use Phplrt\Contracts\Source\ReadableInterface;
-use Phplrt\Contracts\Lexer\Exception\LexerExceptionInterface;
-use Phplrt\Contracts\Lexer\Exception\LexerRuntimeExceptionInterface;
-use Phplrt\Contracts\Parser\Exception\ParserRuntimeExceptionInterface;
+use Phplrt\Lexer\Lexer;
+use Phplrt\Parser\BuilderInterface;
+use Phplrt\Parser\ContextInterface;
+use Phplrt\Parser\Parser;
 
-/**
- * Class Json5Parser
- */
 final class Json5Parser implements ParserInterface, LexerInterface
 {
     /**
-     * @var Parser
+     * @var string
      */
-    private $parser;
+    private const GRAMMAR_FILE = __DIR__ . '/../resources/grammar.php';
 
     /**
-     * @var Lexer
+     * @var ParserInterface
      */
-    private $lexer;
+    private ParserInterface $parser;
+
+    /**
+     * @var LexerInterface
+     */
+    private LexerInterface $lexer;
 
     /**
      * Parser constructor.
      */
     public function __construct()
     {
-        $grammar = new Json5Grammar();
+        $grammar = require self::GRAMMAR_FILE;
 
-        $this->lexer = new Lexer($grammar->lexemes, $grammar->skips);
+        $this->lexer = new Lexer($grammar['tokens']['default'], $grammar['skip']);
 
-        $this->parser = new Parser($this, $grammar->grammar, [
-            Parser::CONFIG_AST_BUILDER  => new Json5Builder(function (\Throwable $e, $file, $rule, $token, $state) {
-                $message = 'An internal parsing error occurs on line %d at column %d (state %s)';
-                $position = Position::fromOffset($file, $token->getOffset());
+        $this->parser = new Parser($this->lexer, $grammar['grammar'], [
+            Parser::CONFIG_INITIAL_RULE => $grammar['initial'],
+            Parser::CONFIG_AST_BUILDER  => new class($grammar['reducers']) implements BuilderInterface {
+                private array $reducers;
 
-                return new Json5Exception(\vsprintf($message, [
-                    $position->getLine(),
-                    $position->getColumn(),
-                    $state
-                ]), 0, $e);
-            }),
-            Parser::CONFIG_INITIAL_RULE => $grammar->initial,
+                public function __construct(array $reducers)
+                {
+                    $this->reducers = $reducers;
+                }
+
+                public function build(ContextInterface $context, $result)
+                {
+                    $state = $context->getState();
+
+                    if (isset($this->reducers[$state])) {
+                        return $this->reducers[$state]($context, $result);
+                    }
+
+                    return null;
+                }
+            },
         ]);
     }
 
     /**
      * {@inheritDoc}
-     * @throws LexerExceptionInterface
      */
     public function lex($source, int $offset = 0): iterable
     {
@@ -76,7 +82,7 @@ final class Json5Parser implements ParserInterface, LexerInterface
      * {@inheritDoc}
      * @throws \Throwable
      */
-    public function parse($source): iterable
+    public function parse($source, array $options = []): iterable
     {
         return $this->parser->parse($source);
     }
