@@ -1,16 +1,12 @@
 # JSON 5
 
 <p align="center">
-    <a href="https://travis-ci.org/SerafimArts/json5"><img src="https://travis-ci.org/SerafimArts/json5.svg?branch=master" alt="Build Status"></a>
-    <a href="https://codeclimate.com/github/SerafimArts/json5/maintainability"><img src="https://api.codeclimate.com/v1/badges/a542a7b3dbb64920069d/maintainability" /></a>
-    <a href="https://codeclimate.com/github/SerafimArts/json5/test_coverage"><img src="https://api.codeclimate.com/v1/badges/a542a7b3dbb64920069d/test_coverage" /></a>
-</p>
-
-<p align="center">
-    <a href="https://packagist.org/packages/serafim/json5"><img src="https://img.shields.io/badge/PHP-7.4+-4f5b93.svg" alt="PHP 7.4+"></a>
-    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/version#" alt="Latest Stable Version"></a>
-    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/downloads#" alt="Total Downloads"></a>
-    <a href="https://raw.githubusercontent.com/SerafimArts/json5/master/LICENSE.md"><img src="https://poser.pugx.org/serafim/json5/license#" alt="License MIT"></a>
+    <a href="https://github.com/SerafimArts/Json5/actions"><img src="https://github.com/SerafimArts/Json5/workflows/build/badge.svg"></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://img.shields.io/badge/PHP-8.0+-ff0140.svg"></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/version" alt="Latest Stable Version"></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/v/unstable" alt="Latest Unstable Version"></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/downloads" alt="Total Downloads"></a>
+    <a href="https://raw.githubusercontent.com/SerafimArts/Json5/master/LICENSE.md"><img src="https://poser.pugx.org/serafim/json5/license" alt="License MIT"></a>
 </p>
 
 The JSON5 Data Interchange Format (JSON5) is a superset of [JSON] that aims to

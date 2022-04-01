@@ -1,27 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit backupGlobals="false"
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd"
+         colors="true"
+         backupGlobals="true"
+         stopOnFailure="false"
+         processIsolation="false"
          backupStaticAttributes="false"
          bootstrap="vendor/autoload.php"
-         colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         processIsolation="false"
-         stopOnFailure="false">
+>
+    <coverage>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </coverage>
     <testsuites>
         <testsuite name="Test Suite">
             <directory suffix="TestCase.php">tests</directory>
         </testsuite>
     </testsuites>
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">./src</directory>
-            <exclude>
-                <directory suffix=".phpstorm.meta.php">.</directory>
-            </exclude>
-        </whitelist>
-    </filter>
     <php>
-        <server name="APP_ENV" value="testing"/>
+        <ini name="error_reporting" value="-1"/>
+        <ini name="memory_limit" value="-1"/>
     </php>
 </phpunit>

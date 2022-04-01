@@ -1,2 +1,18 @@
-/.idea
-/vendor
+# IDEA
+.idea/
+*.iml
+
+# Composer
+composer.phar
+vendor/
+composer.lock
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Other
+.phpunit.result.cache
+.php_cs.cache
+clover.xml
+.env
