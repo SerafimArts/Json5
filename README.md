@@ -144,16 +144,16 @@ json5);
 
 ## Benchmarks
 
-- 10_000 iterations
+- 100_000 iterations (PHP 8.1 + JIT on Ryzen 9 5900X).
 
-| Decoder                  | Sample              | Time    |
-|--------------------------|---------------------|---------|
-| `json_decode` (native)   | `{"example": 42}`   | 0.0049s |
-| `json5_decode` (lib)     | `{example: 42}`     | 0.6438s |
-| `json_decode` (native)   | `42`                | 0.0021s |
-| `json5_decode` (lib)     | `42`                | 0.4878s |
+| Sample                           | Time    | Operations (Per Second) |
+|----------------------------------|---------|-------------------------|
+| `json_decode('42')`              | 0.0112s | 8 917 408               |
+| `json_decode('{"example": 42}')` | 0.0326s | 3 061 848               |
+| `json5_decode('42')`             | 0.0545s | 1 832 646               |
+| `json5_decode('{example: 42}')`  | 5.3956s | 18 533                  |
 
-Yep... Native json_decode is ~200 times faster =))
+Yep... Native `json_decode` is faster =))
 
 ## Issues
 
@@ -166,4 +166,4 @@ JSON5, please submit an issue to this repository.
 
 ## License
 
-See [LICENSE](https://github.com/SerafimArts/json5/master/LICENSE.md)
+See [LICENSE](https://github.com/SerafimArts/Json5/master/LICENSE.md)
