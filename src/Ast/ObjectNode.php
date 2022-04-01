@@ -22,9 +22,9 @@ final class ObjectNode extends Expression
 {
     /**
      * @param positive-int $offset
-     * @param array<array-key, ObjectMemberNode> $values
+     * @param array<array-key, ObjectMemberNode> $pairs
      */
-    public function __construct(int $offset, private array $values)
+    public function __construct(int $offset, private array $pairs)
     {
         parent::__construct($offset);
     }
@@ -36,15 +36,12 @@ final class ObjectNode extends Expression
     {
         $result = [];
 
-        if ($context->isDepthOverflow()) {
+        if (!$context->isDepthOverflow()) {
             $context->depth++;
 
-            foreach ($this->values as $value) {
-                /** @var string|int $key */
-                $key = $value->key->reduce($context);
-
+            foreach ($this->pairs as $entry) {
                 /** @psalm-suppress MixedAssignment */
-                $result[$key] = $value->value->reduce($context);
+                $result[$entry->key->reduce($context)] = $entry->value->reduce($context);
             }
 
             $context->depth--;
