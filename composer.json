@@ -49,7 +49,14 @@
             "Serafim\\Json5\\Tests\\": "tests"
         }
     },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    },
     "config": {
+        "optimize-autoloader": true,
+        "bin-compat": "full",
         "sort-packages": true
     },
     "scripts": {
