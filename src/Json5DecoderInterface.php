@@ -28,11 +28,11 @@ interface Json5DecoderInterface extends ParserInterface
     public const JSON5_BIGINT_AS_STRING = \JSON_BIGINT_AS_STRING;
 
     /**
-     * Ignores invalid UTF-8 characters.
+     * Decodes JSON objects as array.
      *
      * @var int
      */
-    public const JSON5_INVALID_UTF8_IGNORE = \JSON_INVALID_UTF8_IGNORE;
+    public const JSON5_OBJECT_AS_ARRAY = \JSON_OBJECT_AS_ARRAY;
 
     /**
      * Decodes a JSON5 string.

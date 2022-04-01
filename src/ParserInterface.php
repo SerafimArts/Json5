@@ -24,11 +24,11 @@ interface ParserInterface
     public const JSON5_INVALID_UTF8_SUBSTITUTE = \JSON_INVALID_UTF8_SUBSTITUTE;
 
     /**
-     * Decodes JSON objects as array.
+     * Ignores invalid UTF-8 characters.
      *
      * @var int
      */
-    public const JSON5_OBJECT_AS_ARRAY = \JSON_OBJECT_AS_ARRAY;
+    public const JSON5_INVALID_UTF8_IGNORE = \JSON_INVALID_UTF8_IGNORE;
 
     /**
      * Maximum json5 depth. Must be greater than zero.
