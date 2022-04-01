@@ -13,11 +13,9 @@ namespace Serafim\Json5;
 
 use JetBrains\PhpStorm\Language;
 use Phplrt\Contracts\Exception\RuntimeExceptionInterface;
-use Phplrt\Contracts\Parser\ParserInterface;
-use Phplrt\Contracts\Position\PositionInterface;
 use Phplrt\Exception\RuntimeException;
 use Phplrt\Position\Position;
-use Serafim\Json5\Ast\JsonNodeInterface;
+use Serafim\Json5\Ast\IntNumberNode;
 use Serafim\Json5\Ast\Node;
 use Serafim\Json5\Exception\Json5Exception;
 use Serafim\Json5\Internal\Context;
@@ -25,6 +23,11 @@ use Serafim\Json5\Internal\Json5Parser;
 
 final class Json5 implements Json5EncoderInterface, Json5DecoderInterface
 {
+    /**
+     * @var Json5Parser|null
+     */
+    private static ?Json5Parser $parser = null;
+
     /**
      * {@inheritDoc}
      */
@@ -38,14 +41,31 @@ final class Json5 implements Json5EncoderInterface, Json5DecoderInterface
 
         $json = \trim($json);
 
-        return match ($json) {
+        $context = new Context(
+            options: $options,
+            maxDepth: $depth,
+        );
+
+        return match($json) {
+            // Empty String
             '' => null,
+            // True Literal
             'true' => true,
+            // False Literal
             'false' => false,
-            default => self::eval($json, new Context(
-                maxDepth: $depth,
-                options: $options,
-            ))
+            // NaN Literal
+            'NaN' => \NAN,
+            // Infinity Literal
+            'Infinity' => \INF,
+            // Composite Analysis
+            default => match (true) {
+                // Integer Sequence
+                \ctype_digit($json) => IntNumberNode::eval($json, $context),
+                // Negative Integer Sequence
+                $json[0] === '-' && \ctype_digit(\substr($json, 1)) => -IntNumberNode::eval(\substr($json, 1), $context),
+                // Nested Analysis
+                default => self::eval($json, $context)
+            }
         };
     }
 
@@ -59,11 +79,13 @@ final class Json5 implements Json5EncoderInterface, Json5DecoderInterface
      */
     private static function eval(string $json, Context $context): mixed
     {
-        $parser = new Json5Parser();
+        if (self::$parser === null) {
+            self::$parser = new Json5Parser();
+        }
 
         try {
             /** @psalm-var array<array-key, Node> $result */
-            $result = $parser->parse($json);
+            $result = self::$parser->parse($json);
 
             if (($ast = \reset($result)) instanceof Node) {
                 return $ast->reduce($context);

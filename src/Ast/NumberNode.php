@@ -48,4 +48,13 @@ abstract class NumberNode extends Expression
     {
         return $value >= self::MAX_INT32_VALUE || $value < self::MIN_INT32_VALUE;
     }
+
+    /**
+     * @param int $value
+     * @return bool
+     */
+    protected function isInt32(int $value): bool
+    {
+        return $value < self::MAX_INT32_VALUE && $value > self::MIN_INT32_VALUE;
+    }
 }

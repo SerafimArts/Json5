@@ -32,19 +32,13 @@ final class Context
     public int $depth = 0;
 
     /**
-     * @var StringParser
-     */
-    public StringParser $parser;
-
-    /**
-     * @param positive-int|0 $maxDepth
      * @param int $options
+     * @param positive-int|0 $maxDepth
      */
     public function __construct(
-        public int $maxDepth = ParserInterface::DEFAULT_PARSER_DEPTH,
         public int $options = 0,
+        public int $maxDepth = ParserInterface::DEFAULT_PARSER_DEPTH,
     ) {
-        $this->parser = new StringParser($this);
     }
 
     /**

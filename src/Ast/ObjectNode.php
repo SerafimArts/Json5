@@ -50,10 +50,9 @@ final class ObjectNode extends Expression
             $context->depth--;
         }
 
-        if ($context->hasOption(Json5DecoderInterface::JSON5_OBJECT_AS_ARRAY)) {
-            return $result;
-        }
+        $shouldReturnArray = ($context->options & Json5DecoderInterface::JSON5_OBJECT_AS_ARRAY)
+            === Json5DecoderInterface::JSON5_OBJECT_AS_ARRAY;
 
-        return (object)$result;
+        return $shouldReturnArray ? $result : (object)$result;
     }
 }

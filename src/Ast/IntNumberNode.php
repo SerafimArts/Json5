@@ -23,7 +23,7 @@ class IntNumberNode extends NumberNode
     /**
      * @param positive-int|0 $offset
      * @param bool $isPositive
-     * @param string $value
+     * @param numeric-string $value
      */
     public function __construct(int $offset, private bool $isPositive, private string $value)
     {
@@ -31,17 +31,32 @@ class IntNumberNode extends NumberNode
     }
 
     /**
+     * @param numeric-string $value
+     * @param Context $context
+     * @return int|float|string
+     */
+    public static function eval(string $value, Context $context): int|float|string
+    {
+        return (new self(0, true, $value))->reduce($context);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function reduce(Context $context): float|int|string
     {
-        $expectCastToString = $this->isBigInt((int)$this->value)
-            && $context->hasOption(Json5DecoderInterface::JSON5_BIGINT_AS_STRING);
+        $integer = (int)$this->value;
+        if ($this->isInt32($integer)) {
+            return $this->isPositive ? $integer : -$integer;
+        }
 
-        if ($expectCastToString) {
+        $shouldCastToString = ($context->options & Json5DecoderInterface::JSON5_BIGINT_AS_STRING)
+            === Json5DecoderInterface::JSON5_BIGINT_AS_STRING;
+
+        if ($shouldCastToString) {
             return $this->isPositive ? $this->value : '-' . $this->value;
         }
 
-        return $this->signed($this->isPositive, (int)$this->value);
+        return $this->isPositive ? $integer : -$integer;
     }
 }

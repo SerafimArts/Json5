@@ -12,6 +12,7 @@ declare(strict_types=1);
 namespace Serafim\Json5\Ast;
 
 use Serafim\Json5\Internal\Context;
+use Serafim\Json5\Internal\StringParser;
 
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
@@ -19,6 +20,11 @@ use Serafim\Json5\Internal\Context;
  */
 final class StringNode extends Expression
 {
+    /**
+     * @var StringParser|null
+     */
+    private static ?StringParser $parser = null;
+
     /**
      * @param positive-int $offset
      * @param string $value
@@ -35,6 +41,8 @@ final class StringNode extends Expression
      */
     public function reduce(Context $context): string
     {
-        return $context->parser->decodeString($this->value);
+        return (self::$parser ??= new StringParser())
+            ->decode($this->value, $context)
+        ;
     }
 }

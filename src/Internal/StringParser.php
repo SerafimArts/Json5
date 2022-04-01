@@ -154,28 +154,25 @@ final class StringParser
      */
     private LexerInterface $lexer;
 
-    /**
-     * @param Context $context
-     */
-    public function __construct(
-        private Context $context
-    ) {
+    public function __construct()
+    {
         $this->lexer = new Lexer(self::LEXEMES);
     }
 
     /**
      * @param string $value
+     * @param Context $context
      * @return string
      * @throws RuntimeExceptionInterface
      * @throws \Throwable
      */
-    public function decodeString(string $value): string
+    public function decode(string $value, Context $context): string
     {
         $result = '';
         $value = \str_replace(["\\\n", "\\\r\n"], '', $value);
 
         foreach ($this->lexer->lex($value) as $token) {
-            $result .= $this->map($token);
+            $result .= $this->map($token, $context);
         }
 
         return $result;
@@ -183,26 +180,27 @@ final class StringParser
 
     /**
      * @param TokenInterface $token
+     * @param Context $context
      * @return string
      * @throws \Throwable
      */
-    protected function map(TokenInterface $token): string
+    protected function map(TokenInterface $token, Context $context): string
     {
         switch ($token->getName()) {
             case TokenInterface::END_OF_INPUT:
                 return '';
 
             case self::T_UNICODE_4B_CHAR:
-                \assert($token instanceof Composite);
-                \assert($token[0] !== null);
+                assert($token instanceof Composite);
+                assert($token[0] !== null);
 
-                return $this->unicode($token[0]->getValue());
+                return $this->unicode($token[0]->getValue(), $context);
 
             case self::T_UNICODE_2B_CHAR:
-                \assert($token instanceof Composite);
-                \assert($token[0] !== null);
+                assert($token instanceof Composite);
+                assert($token[0] !== null);
 
-                return $this->unicode('00' . $token[0]->getValue());
+                return $this->unicode('00' . $token[0]->getValue(), $context);
 
             default:
                 return self::SPECIAL_CHARS[$token->getName()] ?? $token->getValue();
@@ -216,23 +214,22 @@ final class StringParser
      * @see https://spec.json5.org/#escapes
      *
      * @param string $char
+     * @param Context $context
      * @return string
      * @throws \Throwable
      */
-    private function unicode(string $char): string
+    private function unicode(string $char, Context $context): string
     {
         try {
             return \mb_convert_encoding(\pack('H*', $char), 'UTF-8', 'UCS-2BE');
         } catch (\Throwable $e) {
-            if ($this->context->hasOption(Json5DecoderInterface::JSON5_INVALID_UTF8_SUBSTITUTE)) {
-                return self::INVALID_UNICODE_CHAR;
-            }
-
-            if ($this->context->hasOption(Json5DecoderInterface::JSON5_INVALID_UTF8_IGNORE)) {
-                return '';
-            }
-
-            throw $e;
+            return match (true) {
+                ($context->options & Json5DecoderInterface::JSON5_INVALID_UTF8_SUBSTITUTE)
+                    === Json5DecoderInterface::JSON5_INVALID_UTF8_SUBSTITUTE => self::INVALID_UNICODE_CHAR,
+                ($context->options & Json5DecoderInterface::JSON5_INVALID_UTF8_IGNORE)
+                    === Json5DecoderInterface::JSON5_INVALID_UTF8_IGNORE => '',
+                default => throw $e,
+            };
         }
     }
 }

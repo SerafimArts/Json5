@@ -71,9 +71,13 @@ final class ExponentialNumberNode extends NumberNode
     {
         $result .= \str_repeat('0', $this->exponent);
 
-        $expectCastToString = $this->isBigInt((int)$result)
-            && $context->hasOption(Json5DecoderInterface::JSON5_BIGINT_AS_STRING);
+        if ($this->isInt32((int)$result)) {
+            return (int)$result;
+        }
 
-        return $expectCastToString ? $result : (int)$result;
+        $shouldCastToString = ($context->options & Json5DecoderInterface::JSON5_BIGINT_AS_STRING)
+            === Json5DecoderInterface::JSON5_BIGINT_AS_STRING;
+
+        return $shouldCastToString ? $result : (int)$result;
     }
 }
