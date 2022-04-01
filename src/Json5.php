@@ -62,7 +62,7 @@ final class Json5 implements Json5EncoderInterface, Json5DecoderInterface
                 // Integer Sequence
                 \ctype_digit($json) => IntNumberNode::eval($json, $context),
                 // Negative Integer Sequence
-                $json[0] === '-' && \ctype_digit(\substr($json, 1)) => -IntNumberNode::eval(\substr($json, 1), $context),
+                $json[0] === '-' && \ctype_digit(\substr($json, 1)) => IntNumberNode::eval(\substr($json, 1), $context, false),
                 // Nested Analysis
                 default => self::eval($json, $context)
             }

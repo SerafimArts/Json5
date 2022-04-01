@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Tests;
 
-abstract class TestCase
+use PHPUnit\Framework\TestCase as BaseTestCase;
+
+abstract class TestCase extends BaseTestCase
 {
 }

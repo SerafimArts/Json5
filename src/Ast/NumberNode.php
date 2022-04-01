@@ -11,6 +11,8 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Json5\Internal\Comparator\ComparatorInterface;
+use Serafim\Json5\Internal\Comparator\Facade;
 use Serafim\Json5\Internal\Context;
 use Serafim\Json5\Json5DecoderInterface;
 
@@ -31,6 +33,11 @@ abstract class NumberNode extends Expression
     private const MAX_INT32_VALUE = 2 ** 31;
 
     /**
+     * @var ComparatorInterface|null
+     */
+    private static ?ComparatorInterface $comparator = null;
+
+    /**
      * @param bool $isPositive
      * @param int|float $value
      * @return float|int
@@ -41,20 +48,20 @@ abstract class NumberNode extends Expression
     }
 
     /**
-     * @param int|float $value
+     * @param numeric-string $value
      * @return bool
      */
-    protected function isBigInt(int|float $value): bool
+    protected function isInt32(string $value): bool
     {
-        return $value >= self::MAX_INT32_VALUE || $value < self::MIN_INT32_VALUE;
+        return (self::$comparator ??= new Facade())->isInt32($value);
     }
 
     /**
-     * @param int $value
+     * @param numeric-string $value
      * @return bool
      */
-    protected function isInt32(int $value): bool
+    protected function isInt64(string $value): bool
     {
-        return $value < self::MAX_INT32_VALUE && $value > self::MIN_INT32_VALUE;
+        return (self::$comparator ??= new Facade())->isInt64($value);
     }
 }

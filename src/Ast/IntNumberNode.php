@@ -33,20 +33,26 @@ class IntNumberNode extends NumberNode
     /**
      * @param numeric-string $value
      * @param Context $context
-     * @return int|float|string
+     * @param bool $isPositive
+     * @return int|float|numeric-string
      */
-    public static function eval(string $value, Context $context): int|float|string
+    public static function eval(string $value, Context $context, bool $isPositive = true): int|float|string
     {
-        return (new self(0, true, $value))->reduce($context);
+        return (new self(0, $isPositive, $value))->reduce($context);
     }
 
     /**
-     * {@inheritDoc}
+     * @param Context $context
+     * @return float|int|numeric-string
+     *
+     * @psalm-suppress MoreSpecificReturnType
+     * @psalm-suppress LessSpecificReturnStatement
      */
     public function reduce(Context $context): float|int|string
     {
-        $integer = (int)$this->value;
-        if ($this->isInt32($integer)) {
+        // -- int32 on PHP x64/x86
+        if ($this->isInt32($this->value)) {
+            $integer = (int)$this->value;
             return $this->isPositive ? $integer : -$integer;
         }
 
@@ -57,6 +63,13 @@ class IntNumberNode extends NumberNode
             return $this->isPositive ? $this->value : '-' . $this->value;
         }
 
-        return $this->isPositive ? $integer : -$integer;
+        // -- int64 on PHP x64
+        if (\PHP_INT_SIZE === 8 && $this->isInt64($this->value)) {
+            $integer = (int)$this->value;
+            return $this->isPositive ? $integer : -$integer;
+        }
+
+        $float = (float)$this->value;
+        return $this->isPositive ? $float : -$float;
     }
 }
