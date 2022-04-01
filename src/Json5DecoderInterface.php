@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of Json5 package.
+ * This file is part of json5 package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,31 +11,48 @@ declare(strict_types=1);
 
 namespace Serafim\Json5;
 
+use JetBrains\PhpStorm\Language;
 use Serafim\Json5\Exception\Json5Exception;
 
 /**
- * Interface Json5DecoderInterface
+ * @psalm-type JsonDecodeFlag = Json5DecoderInterface::JSON5_*
+ * @psalm-type JsonDecodeFlags = int-mask-of<JsonDecodeFlag>
  */
-interface Json5DecoderInterface
+interface Json5DecoderInterface extends ParserInterface
 {
     /**
-     * Decodes a JSON5 string
+     * Decodes large integers as their original string value.
      *
-     * Note: This function only works with UTF-8 encoded strings.
-     *
-     * @param string $json  The json string being decoded.
-     * @param int $options  Bitmask of JSON decode options:
-     *
-     *  - {@see JSON_BIGINT_AS_STRING}          Decodes large integers as their original string value.
-     *  - {@see JSON_INVALID_UTF8_IGNORE}       Ignores invalid UTF-8 characters.
-     *  - {@see JSON_INVALID_UTF8_SUBSTITUTE}   Converts invalid UTF-8 characters to \0xfffd.
-     *  - {@see JSON_OBJECT_AS_ARRAY}           Decodes JSON objects as array.
-     *
-     * @return mixed    The value encoded in json in appropriate PHP type.
-     *                  Values true, false and null (case-insensitive) are
-     *                  returned as "true", "false" and "null" respectively.
-     *
-     * @throws Json5Exception   Throws when error occurred.
+     * @var int
      */
-    public function decode(string $json, int $options = 0);
+    public const JSON5_BIGINT_AS_STRING = \JSON_BIGINT_AS_STRING;
+
+    /**
+     * Ignores invalid UTF-8 characters.
+     *
+     * @var int
+     */
+    public const JSON5_INVALID_UTF8_IGNORE = \JSON_INVALID_UTF8_IGNORE;
+
+    /**
+     * Decodes a JSON5 string.
+     *
+     * @param string $json              The json string being decoded.
+     * @param JsonDecodeFlags $options  Bitmask of JSON decode options.
+     * @param positive-int $depth       Maximum nesting depth of the structure
+     *                                  being decoded.
+     *
+     * @return mixed The value encoded in json in appropriate PHP type. JSON
+     *               values true, false and null (case-insensitive) are returned
+     *               as PHP {@see true}, {@see false} and {@see null}
+     *               respectively.
+     *
+     * @throws Json5Exception Throws when error occurred.
+     */
+    public static function decode(
+        #[Language('JSON5')]
+        string $json,
+        int $options = 0,
+        int $depth = self::DEFAULT_PARSER_DEPTH
+    ): mixed;
 }

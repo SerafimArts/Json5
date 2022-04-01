@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of Json5 package.
+ * This file is part of json5 package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,38 +11,25 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Phplrt\Contracts\Ast\NodeInterface;
+use Serafim\Json5\Internal\Context;
+
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
+ * @psalm-internal Serafim\Json5
  */
-abstract class Node implements JsonNodeInterface
+abstract class Node implements NodeInterface
 {
     /**
-     * @var int
+     * @param positive-int|0 $offset
      */
-    public const MIN_INT32_VALUE = -2 ** 31;
-
-    /**
-     * @var int
-     */
-    public const MAX_INT32_VALUE = 2 ** 31;
-
-    /**
-     * @var int
-     */
-    private int $offset;
-
-    /**
-     * Node constructor.
-     *
-     * @param int $offset
-     */
-    public function __construct(int $offset)
+    public function __construct(private int $offset)
     {
-        $this->offset = $offset;
+        assert($offset >= 0, 'Offset should be greater or equals than 0');
     }
 
     /**
-     * @return int
+     * @return positive-int|0
      */
     public function getOffset(): int
     {
@@ -57,35 +44,6 @@ abstract class Node implements JsonNodeInterface
     public function getIterator(): \Traversable
     {
         return new \EmptyIterator();
-    }
-
-    /**
-     * @param int $options
-     * @param int $needle
-     * @return bool
-     */
-    protected function hasOption(int $options, int $needle): bool
-    {
-        return ($options & $needle) === $needle;
-    }
-
-    /**
-     * @param mixed $value
-     * @return bool
-     */
-    protected function isBigInt($value): bool
-    {
-        return $value >= self::MAX_INT32_VALUE || $value < self::MIN_INT32_VALUE;
-    }
-
-    /**
-     * @param bool $isPositive
-     * @param int|float $value
-     * @return float|int
-     */
-    protected function signed(bool $isPositive, $value)
-    {
-        return $isPositive ? $value : -$value;
     }
 
     /**

@@ -1,7 +1,8 @@
+#!/usr/bin/env php
 <?php
 
 /**
- * This file is part of Json5 package.
+ * This file is part of json5 package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,10 +15,13 @@ use Phplrt\Source\File;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+const GRAMMAR_INPUT_PATHNAME = __DIR__ . '/../resources/grammar.pp2';
+const GRAMMAR_OUTPUT_PATHNAME = __DIR__ . '/../resources/grammar.php';
+
 $assembly = (new Compiler())
-    ->load(File::fromPathname(__DIR__ . '/../resources/grammar.pp2'))
+    ->load(File::fromPathname(GRAMMAR_INPUT_PATHNAME))
     ->build()
     ->generate()
 ;
 
-\file_put_contents(__DIR__ . '/../resources/grammar.php', $assembly);
+file_put_contents(GRAMMAR_OUTPUT_PATHNAME, $assembly);

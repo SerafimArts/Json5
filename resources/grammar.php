@@ -66,8 +66,8 @@ return [
         
     ],
     'grammar' => [
-        0 => new \Phplrt\Grammar\Alternation([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
         'Json' => new \Phplrt\Grammar\Concatenation([0]),
+        0 => new \Phplrt\Grammar\Alternation([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]),
         1 => new \Phplrt\Grammar\Concatenation([19, 20, 21]),
         2 => new \Phplrt\Grammar\Concatenation([31, 32, 33]),
         3 => new \Phplrt\Grammar\Alternation([36, 37]),

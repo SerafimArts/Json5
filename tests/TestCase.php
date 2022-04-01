@@ -13,5 +13,4 @@ namespace Serafim\Json5\Tests;
 
 abstract class TestCase
 {
-
 }

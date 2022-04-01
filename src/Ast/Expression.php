@@ -17,22 +17,11 @@ use Serafim\Json5\Internal\Context;
  * @internal An internal class for Json5 abstract syntax tree node representation
  * @psalm-internal Serafim\Json5
  */
-final class IdentifierNode extends Expression
+abstract class Expression extends Node
 {
     /**
-     * @param positive-int|0 $offset
-     * @param string $value
+     * @param Context $context
+     * @return mixed
      */
-    public function __construct(int $offset, private string $value)
-    {
-        parent::__construct($offset);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function reduce(Context $context): string
-    {
-        return $this->value;
-    }
+    abstract public function reduce(Context $context): mixed;
 }

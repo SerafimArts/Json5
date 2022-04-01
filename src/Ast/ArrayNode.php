@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This file is part of Json5 package.
+ * This file is part of json5 package.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,52 +11,43 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Json5\Internal\Context;
+
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
+ * @psalm-internal Serafim\Json5
  */
-final class ArrayNode extends Node
+final class ArrayNode extends Expression
 {
     /**
-     * @var array|Node[]
+     * @param positive-int|0 $offset
+     * @param array<Node> $values
      */
-    public array $values;
-
-    /**
-     * BooleanNode constructor.
-     *
-     * @param int $offset
-     * @param array|Node[] $values
-     */
-    public function __construct(int $offset, array $values)
+    public function __construct(int $offset, private array $values)
     {
-        $this->values = $values;
-
         parent::__construct($offset);
     }
 
     /**
-     * @psalm-suppress ImplementedReturnTypeMismatch
-     * @psalm-return \Traversable<string, array<array-key, Node>>
-     *
      * {@inheritDoc}
      */
-    public function getIterator(): \Traversable
+    public function reduce(Context $context): array
     {
-        return new \ArrayIterator(['values' => $this->values]);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function reduce(int $options, int $depth, int $maxDepth): array
-    {
-        if ($depth + 1 >= $maxDepth) {
+        if ($context->isDepthOverflow()) {
             return [];
         }
 
-        /** @psalm-suppress MissingClosureReturnType */
-        $map = fn (JsonNodeInterface $node) => $node->reduce($options, $depth + 1, $maxDepth);
+        $result = [];
 
-        return \array_map($map, $this->values);
+        $context->depth++;
+
+        foreach ($this->values as $child) {
+            $result[] = $child->reduce($context);
+        }
+
+        /** @psalm-suppress PropertyTypeCoercion */
+        $context->depth--;
+
+        return $result;
     }
 }
