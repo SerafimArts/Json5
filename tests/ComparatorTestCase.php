@@ -18,7 +18,7 @@ use Serafim\Json5\Internal\Comparator\NativeComparator;
 
 class ComparatorTestCase extends TestCase
 {
-    protected function comparatorDataProvider(): array
+    public function comparatorDataProvider(): array
     {
         $result = ['native' => [new NativeComparator()]];
 
