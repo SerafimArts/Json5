@@ -16,7 +16,7 @@ use Phplrt\Lexer\Lexer;
 use Phplrt\Lexer\Token\Composite;
 use Phplrt\Contracts\Lexer\LexerInterface;
 use Phplrt\Contracts\Lexer\TokenInterface;
-use Serafim\Json5\Json5DecoderInterface;
+use Serafim\Json5\DecodeFlag;
 
 final class StringParser
 {
@@ -224,10 +224,10 @@ final class StringParser
             return \mb_convert_encoding(\pack('H*', $char), 'UTF-8', 'UCS-2BE');
         } catch (\Throwable $e) {
             return match (true) {
-                ($context->options & Json5DecoderInterface::JSON5_INVALID_UTF8_SUBSTITUTE)
-                    === Json5DecoderInterface::JSON5_INVALID_UTF8_SUBSTITUTE => self::INVALID_UNICODE_CHAR,
-                ($context->options & Json5DecoderInterface::JSON5_INVALID_UTF8_IGNORE)
-                    === Json5DecoderInterface::JSON5_INVALID_UTF8_IGNORE => '',
+                ($context->options & DecodeFlag::JSON5_INVALID_UTF8_SUBSTITUTE)
+                    === DecodeFlag::JSON5_INVALID_UTF8_SUBSTITUTE => self::INVALID_UNICODE_CHAR,
+                ($context->options & DecodeFlag::JSON5_INVALID_UTF8_IGNORE)
+                    === DecodeFlag::JSON5_INVALID_UTF8_IGNORE => '',
                 default => throw $e,
             };
         }

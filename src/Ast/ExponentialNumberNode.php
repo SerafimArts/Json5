@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Serafim\Json5\Ast;
 
 use Serafim\Json5\Internal\Context;
-use Serafim\Json5\Json5DecoderInterface;
+use Serafim\Json5\DecodeFlag;
 
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
@@ -80,8 +80,8 @@ final class ExponentialNumberNode extends NumberNode
             return (int)$result;
         }
 
-        $shouldCastToString = ($context->options & Json5DecoderInterface::JSON5_BIGINT_AS_STRING)
-            === Json5DecoderInterface::JSON5_BIGINT_AS_STRING;
+        $shouldCastToString = ($context->options & DecodeFlag::JSON5_BIGINT_AS_STRING)
+            === DecodeFlag::JSON5_BIGINT_AS_STRING;
 
         if ($shouldCastToString) {
             return $result;

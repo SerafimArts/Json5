@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Serafim\Json5\Ast;
 
 use Serafim\Json5\Internal\Context;
-use Serafim\Json5\Json5DecoderInterface;
+use Serafim\Json5\DecodeFlag;
 
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
@@ -36,7 +36,7 @@ final class ObjectNode extends Expression
     {
         $result = [];
 
-        if (!$context->isDepthOverflow()) {
+        if ($context->depth + 1 < $context->maxDepth) {
             $context->depth++;
 
             foreach ($this->pairs as $entry) {
@@ -47,8 +47,8 @@ final class ObjectNode extends Expression
             $context->depth--;
         }
 
-        $shouldReturnArray = ($context->options & Json5DecoderInterface::JSON5_OBJECT_AS_ARRAY)
-            === Json5DecoderInterface::JSON5_OBJECT_AS_ARRAY;
+        $shouldReturnArray = ($context->options & DecodeFlag::JSON5_OBJECT_AS_ARRAY)
+            === DecodeFlag::JSON5_OBJECT_AS_ARRAY;
 
         return $shouldReturnArray ? $result : (object)$result;
     }

@@ -14,7 +14,7 @@ namespace Serafim\Json5\Ast;
 use Serafim\Json5\Internal\Comparator\ComparatorInterface;
 use Serafim\Json5\Internal\Comparator\Facade;
 use Serafim\Json5\Internal\Context;
-use Serafim\Json5\Json5DecoderInterface;
+use Serafim\Json5\DecodeFlag;
 
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation

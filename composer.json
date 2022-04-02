@@ -11,10 +11,10 @@
         "encode",
         "json5"
     ],
-    "homepage": "https://github.com/SerafimArts/json5",
+    "homepage": "https://github.com/SerafimArts/Json5",
     "support": {
-        "issues": "https://github.com/SerafimArts/json5/issues",
-        "source": "https://github.com/SerafimArts/json5"
+        "issues": "https://github.com/SerafimArts/Json5/issues",
+        "source": "https://github.com/SerafimArts/Json5"
     },
     "authors": [
         {
@@ -23,7 +23,7 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-json": "*",
         "phplrt/runtime": "^3.1",
         "symfony/polyfill-ctype": "^1.25"
@@ -37,6 +37,7 @@
         ]
     },
     "require-dev": {
+        "serafim/dbc": "^0.3",
         "symfony/console": "^5.4|^6.0",
         "symfony/var-dumper": "^5.4|^6.0",
         "phplrt/compiler": "^3.1",

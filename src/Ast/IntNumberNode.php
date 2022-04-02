@@ -12,7 +12,7 @@ declare(strict_types=1);
 namespace Serafim\Json5\Ast;
 
 use Serafim\Json5\Internal\Context;
-use Serafim\Json5\Json5DecoderInterface;
+use Serafim\Json5\DecodeFlag;
 
 /**
  * @internal An internal class for Json5 abstract syntax tree node representation
@@ -25,8 +25,11 @@ class IntNumberNode extends NumberNode
      * @param bool $isPositive
      * @param numeric-string $value
      */
-    public function __construct(int $offset, private bool $isPositive, private string $value)
-    {
+    public function __construct(
+        int $offset,
+        private readonly bool $isPositive,
+        private readonly string $value
+    ) {
         parent::__construct($offset);
     }
 
@@ -56,8 +59,8 @@ class IntNumberNode extends NumberNode
             return $this->isPositive ? $integer : -$integer;
         }
 
-        $shouldCastToString = ($context->options & Json5DecoderInterface::JSON5_BIGINT_AS_STRING)
-            === Json5DecoderInterface::JSON5_BIGINT_AS_STRING;
+        $shouldCastToString = ($context->options & DecodeFlag::JSON5_BIGINT_AS_STRING)
+            === DecodeFlag::JSON5_BIGINT_AS_STRING;
 
         if ($shouldCastToString) {
             return $this->isPositive ? $this->value : '-' . $this->value;

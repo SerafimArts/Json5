@@ -11,8 +11,8 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Tests\Decoder;
 
+use Serafim\Json5\DecodeFlag;
 use Serafim\Json5\Exception\Json5Exception;
-use Serafim\Json5\Json5DecoderInterface;
 
 class LiteralsTestCase extends DecoderTestCase
 {
@@ -166,7 +166,7 @@ class LiteralsTestCase extends DecoderTestCase
     {
         $this->assertSame('2147483648', $this->decode(
             '2147483648',
-            Json5DecoderInterface::JSON5_BIGINT_AS_STRING
+            DecodeFlag::JSON5_BIGINT_AS_STRING
         ));
     }
 
@@ -188,7 +188,7 @@ class LiteralsTestCase extends DecoderTestCase
     {
         $this->assertSame('-2147483649', $this->decode(
             '-2147483649',
-            Json5DecoderInterface::JSON5_BIGINT_AS_STRING
+            DecodeFlag::JSON5_BIGINT_AS_STRING
         ));
     }
 }

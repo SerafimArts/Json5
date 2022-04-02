@@ -21,10 +21,12 @@ final class ArrayNode extends Expression
 {
     /**
      * @param positive-int|0 $offset
-     * @param array<Node> $values
+     * @param array<Expression> $values
      */
-    public function __construct(int $offset, private array $values)
-    {
+    public function __construct(
+        int $offset,
+        private readonly array $values
+    ) {
         parent::__construct($offset);
     }
 
@@ -33,7 +35,7 @@ final class ArrayNode extends Expression
      */
     public function reduce(Context $context): array
     {
-        if ($context->isDepthOverflow()) {
+        if ($context->depth + 1 >= $context->maxDepth) {
             return [];
         }
 

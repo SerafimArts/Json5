@@ -11,13 +11,10 @@ declare(strict_types=1);
 
 namespace Serafim\Json5;
 
-use Serafim\Json5\Exception\Json5Exception;
-
 /**
- * @psalm-type JsonEncodeFlag = Json5EncoderInterface::JSON5_*
- * @psalm-type JsonEncodeFlags = int-mask-of<JsonEncodeFlag>
+ * @psalm-type JsonEncodeFlag = EncodeFlag::JSON5_*
  */
-interface Json5EncoderInterface extends ParserInterface
+interface EncodeFlag extends Flag
 {
     /**
      * All " are converted to \u{0022}.
@@ -101,29 +98,10 @@ interface Json5EncoderInterface extends ParserInterface
     public const JSON5_UNESCAPED_LINE_TERMINATORS = \JSON_UNESCAPED_LINE_TERMINATORS;
 
     /**
-     * Avoids errors when using the {@see encode()} method. Substitutes
+     * Avoids errors when using the {@see Json5::encode()} method. Substitutes
      * default values for non-encoded ones.
      *
      * @var int
      */
     public const JSON5_PARTIAL_OUTPUT_ON_ERROR = \JSON_PARTIAL_OUTPUT_ON_ERROR;
-
-    /**
-     * Returns the JSON5 representation of a value.
-     *
-     * @param mixed $value             The value being encoded. Can be any type
-     *                                 except a resource.
-     * @param JsonEncodeFlags $options Bitmask of JSON encode options.
-     * @param positive-int $depth      Set the maximum depth. Must be greater
-     *                                 than zero.
-     *
-     * @return string A JSON5 encoded string.
-     *
-     * @throws Json5Exception Throws when error occurred.
-     */
-    public static function encode(
-        mixed $value,
-        int $options = 0,
-        int $depth = self::DEFAULT_PARSER_DEPTH
-    ): string;
 }

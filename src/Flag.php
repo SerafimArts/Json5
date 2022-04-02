@@ -12,9 +12,9 @@ declare(strict_types=1);
 namespace Serafim\Json5;
 
 /**
- * @psalm-type JsonCommonFlag = ParserInterface::JSON5_*
+ * @psalm-type JsonCommonFlag = Flag::JSON5_*
  */
-interface ParserInterface
+interface Flag
 {
     /**
      * Converts invalid UTF-8 characters to \u{FFFD}.
@@ -29,11 +29,4 @@ interface ParserInterface
      * @var int
      */
     public const JSON5_INVALID_UTF8_IGNORE = \JSON_INVALID_UTF8_IGNORE;
-
-    /**
-     * Maximum json5 depth. Must be greater than zero.
-     *
-     * @var positive-int
-     */
-    public const DEFAULT_PARSER_DEPTH = 512;
 }
