@@ -24,10 +24,6 @@ use Serafim\Json5\Exception\Json5Exception;
 use Serafim\Json5\Internal\Context;
 use Serafim\Json5\Internal\Json5Parser;
 
-/**
- * @psalm-import-type JsonDecodeFlag from DecodeFlag
- * @psalm-import-type JsonEncodeFlag from EncodeFlag
- */
 final class Json5
 {
     /**
@@ -46,7 +42,7 @@ final class Json5
      * Decodes a JSON5 string.
      *
      * @param string $json The json string being decoded.
-     * @param int-mask-of<JsonDecodeFlag> $options Bitmask of JSON decode options.
+     * @param int-mask-of<JsonDecode::JSON5_*> $options Bitmask of JSON decode options.
      * @param positive-int $depth Maximum nesting depth of the structure being
      *                            decoded.
      * @return mixed The value encoded in json in appropriate PHP type. JSON
@@ -56,6 +52,7 @@ final class Json5
      * @throws Json5Exception Throws when error occurred.
      */
     #[Verify('$depth > 0', 'Json depth must be greater than 0')]
+    #[Verify('$options >= 0', 'Json flags (options) must be greater than 0')]
     public static function decode(
         #[Language('JSON5')]
         string $json,
@@ -131,7 +128,7 @@ final class Json5
      *
      * @param mixed $value The value being encoded. Can be any type except
      *                     a PHP resource type.
-     * @param int-mask-of<JsonEncodeFlag> $options Bitmask of JSON encode options.
+     * @param int-mask-of<JsonEncode::JSON5_*> $options Bitmask of JSON encode options.
      * @param positive-int $depth Set the maximum depth. Must be greater than zero.
      * @return string A JSON5 encoded string.
      * @throws Json5Exception Throws when error occurred.

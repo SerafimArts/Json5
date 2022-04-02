@@ -16,9 +16,6 @@ use Serafim\Json5\EncodeFlag;
 use Serafim\Json5\Json5;
 
 /**
- * @psalm-import-type JsonDecodeFlag from DecodeFlag
- * @psalm-import-type JsonEncodeFlag from EncodeFlag
- *
  * @internal This is an internal library class, please do not use it in your code.
  * @psalm-internal Serafim\Json5
  */
@@ -30,12 +27,12 @@ final class Context
     public int $depth = 0;
 
     /**
-     * @param int-mask-of<JsonDecodeFlag|JsonEncodeFlag> $options
+     * @param int-mask-of<DecodeFlag::JSON5_*>|int-mask-of<EncodeFlag::JSON5_*> $options
      * @param positive-int|0 $maxDepth
      */
     public function __construct(
-        public int $options = 0,
-        public int $maxDepth = Json5::DEFAULT_JSON5_DEPTH,
+        public readonly int $options = 0,
+        public readonly int $maxDepth = Json5::DEFAULT_JSON5_DEPTH,
     ) {
     }
 }
