@@ -20,6 +20,7 @@ use Phplrt\Parser\ContextInterface;
 use Phplrt\Parser\Parser;
 use Phplrt\Parser\ParserConfigsInterface;
 use Phplrt\Parser\Context;
+use Serafim\Contracts\Attribute\Verify;
 
 /**
  * @psalm-type Json5GrammarReducers = array<array-key, callable(Context,mixed):mixed>
@@ -39,7 +40,6 @@ use Phplrt\Parser\Context;
  */
 final class Json5Parser implements
     ParserInterface,
-    LexerInterface,
     BuilderInterface
 {
     /**
@@ -51,36 +51,30 @@ final class Json5Parser implements
     /**
      * @var ParserInterface
      */
-    private ParserInterface $parser;
+    private readonly ParserInterface $parser;
 
     /**
      * @var LexerInterface
      */
-    private LexerInterface $lexer;
+    private readonly LexerInterface $lexer;
 
     /**
-     * @var Json5GrammarReducers
+     * @psalm-var Json5GrammarReducers
      */
-    private array $reducers;
+    private readonly array $reducers;
 
     public function __construct()
     {
-        $grammar = $this->load();
+        /** @psalm-var Json5Grammar $grammar */
+        $grammar = require self::GRAMMAR_FILE;
 
         $this->reducers = $grammar['reducers'];
-        $this->lexer = new Lexer($grammar['tokens']['default'], $grammar['skip']);
-        $this->parser = new Parser($this->lexer, $grammar['grammar'], [
+
+        $lexer = new Lexer($grammar['tokens']['default'], $grammar['skip']);
+        $this->parser = new Parser($lexer, $grammar['grammar'], [
             ParserConfigsInterface::CONFIG_INITIAL_RULE => $grammar['initial'],
             ParserConfigsInterface::CONFIG_AST_BUILDER  => $this,
         ]);
-    }
-
-    /**
-     * @return Json5Grammar
-     */
-    private function load(): array
-    {
-        return require self::GRAMMAR_FILE;
     }
 
     /**
@@ -88,7 +82,7 @@ final class Json5Parser implements
      * @param mixed $result
      * @return mixed|null
      */
-    public function build(ContextInterface $context, $result)
+    public function build(ContextInterface $context, $result): mixed
     {
         $state = $context->getState();
 
@@ -101,16 +95,9 @@ final class Json5Parser implements
 
     /**
      * {@inheritDoc}
-     */
-    public function lex($source, int $offset = 0): iterable
-    {
-        return $this->lexer->lex($source, $offset);
-    }
-
-    /**
-     * {@inheritDoc}
      * @throws \Throwable
      */
+    #[Verify('$source !== null')]
     public function parse($source, array $options = []): iterable
     {
         return $this->parser->parse($source);

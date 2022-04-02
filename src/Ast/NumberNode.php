@@ -23,29 +23,9 @@ use Serafim\Json5\DecodeFlag;
 abstract class NumberNode extends Expression
 {
     /**
-     * @var int
-     */
-    private const MIN_INT32_VALUE = -2 ** 31;
-
-    /**
-     * @var positive-int
-     */
-    private const MAX_INT32_VALUE = 2 ** 31;
-
-    /**
      * @var ComparatorInterface|null
      */
     private static ?ComparatorInterface $comparator = null;
-
-    /**
-     * @param bool $isPositive
-     * @param int|float $value
-     * @return float|int
-     */
-    protected function signed(bool $isPositive, int|float $value): float|int
-    {
-        return $isPositive ? $value : -$value;
-    }
 
     /**
      * @param numeric-string $value

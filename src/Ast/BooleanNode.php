@@ -23,7 +23,7 @@ final class BooleanNode extends Expression
      * @param positive-int|0 $offset
      * @param bool $value
      */
-    public function __construct(int $offset, private bool $value)
+    public function __construct(int $offset, private readonly bool $value)
     {
         parent::__construct($offset);
     }

@@ -31,7 +31,7 @@ final class StringNode extends Expression
      */
     public function __construct(
         int $offset,
-        private string $value
+        private readonly string $value
     ) {
         parent::__construct($offset);
     }
@@ -41,6 +41,10 @@ final class StringNode extends Expression
      */
     public function reduce(Context $context): string
     {
+        if ($this->value === '') {
+            return $this->value;
+        }
+
         return (self::$parser ??= new StringParser())
             ->decode($this->value, $context)
         ;

@@ -21,9 +21,9 @@ final class InfinityNumberNode extends NumberNode
 {
     /**
      * @param positive-int|0 $offset
-     * @param bool $isPositive
+     * @param bool $positive
      */
-    public function __construct(int $offset, private bool $isPositive)
+    public function __construct(int $offset, private readonly bool $positive)
     {
         parent::__construct($offset);
     }
@@ -33,6 +33,6 @@ final class InfinityNumberNode extends NumberNode
      */
     public function reduce(Context $context): float
     {
-        return $this->signed($this->isPositive, \INF);
+        return $this->positive ? \INF : -\INF;
     }
 }

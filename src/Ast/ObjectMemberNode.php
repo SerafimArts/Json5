@@ -22,8 +22,11 @@ final class ObjectMemberNode extends Node
      * @param StringNode|IdentifierNode $key
      * @param Expression $value
      */
-    public function __construct(int $offset, public StringNode|IdentifierNode $key, public Expression $value)
-    {
+    public function __construct(
+        int $offset,
+        public readonly StringNode|IdentifierNode $key,
+        public readonly Expression $value
+    ) {
         parent::__construct($offset);
     }
 }

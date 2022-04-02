@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Contracts\Attribute\Verify;
 use Serafim\Json5\Internal\Context;
 
 /**
@@ -21,11 +22,15 @@ final class HexadecimalNumberNode extends NumberNode
 {
     /**
      * @param positive-int|0 $offset
-     * @param bool $isPositive
+     * @param bool $positive
      * @param string $value
      */
-    public function __construct(int $offset, private bool $isPositive, private string $value)
-    {
+    #[Verify('strlen($value) > 2', 'Hex value length must be greater than 0')]
+    public function __construct(
+        int $offset,
+        private readonly bool $positive,
+        private readonly string $value
+    ) {
         parent::__construct($offset);
     }
 
@@ -36,6 +41,6 @@ final class HexadecimalNumberNode extends NumberNode
     {
         $hex = \substr($this->value, 2);
 
-        return (int)$this->signed($this->isPositive, (int)\hexdec($hex));
+        return $this->positive ? (int)\hexdec($hex) : -(int)\hexdec($hex);
     }
 }

@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Contracts\Attribute\Verify;
 use Serafim\Json5\Internal\Context;
 
 /**
@@ -23,6 +24,7 @@ final class ArrayNode extends Expression
      * @param positive-int|0 $offset
      * @param array<Expression> $values
      */
+    #[Verify('\PHPUnit\Framework\Assert::assertContainsOnlyInstancesOf(Expression::class, $values) or true')]
     public function __construct(
         int $offset,
         private readonly array $values

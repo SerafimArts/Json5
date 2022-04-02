@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Contracts\Attribute\Verify;
 use Serafim\Json5\Internal\Context;
 
 /**
@@ -21,10 +22,11 @@ final class FloatNumberNode extends NumberNode
 {
     /**
      * @param positive-int|0 $offset
-     * @param bool $isIsPositive
-     * @param string $value
+     * @param bool $positive
+     * @param numeric-string $value
      */
-    public function __construct(int $offset, private bool $isIsPositive, private string $value)
+    #[Verify('is_numeric($value)')]
+    public function __construct(int $offset, private readonly bool $positive, private readonly string $value)
     {
         parent::__construct($offset);
     }
@@ -34,6 +36,6 @@ final class FloatNumberNode extends NumberNode
      */
     public function reduce(Context $context): float
     {
-        return (float)$this->signed($this->isIsPositive, (float)$this->value);
+        return $this->positive ? (float)$this->value : -(float)$this->value;
     }
 }

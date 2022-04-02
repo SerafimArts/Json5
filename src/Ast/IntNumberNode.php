@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Contracts\Attribute\Verify;
 use Serafim\Json5\Internal\Context;
 use Serafim\Json5\DecodeFlag;
 
@@ -22,12 +23,13 @@ class IntNumberNode extends NumberNode
 {
     /**
      * @param positive-int|0 $offset
-     * @param bool $isPositive
+     * @param bool $positive
      * @param numeric-string $value
      */
+    #[Verify('is_numeric($value)')]
     public function __construct(
         int $offset,
-        private readonly bool $isPositive,
+        private readonly bool $positive,
         private readonly string $value
     ) {
         parent::__construct($offset);
@@ -56,23 +58,23 @@ class IntNumberNode extends NumberNode
         // -- int32 on PHP x64/x86
         if ($this->isInt32($this->value)) {
             $integer = (int)$this->value;
-            return $this->isPositive ? $integer : -$integer;
+            return $this->positive ? $integer : -$integer;
         }
 
         $shouldCastToString = ($context->options & DecodeFlag::JSON5_BIGINT_AS_STRING)
             === DecodeFlag::JSON5_BIGINT_AS_STRING;
 
         if ($shouldCastToString) {
-            return $this->isPositive ? $this->value : '-' . $this->value;
+            return $this->positive ? $this->value : '-' . $this->value;
         }
 
         // -- int64 on PHP x64
         if (\PHP_INT_SIZE === 8 && $this->isInt64($this->value)) {
             $integer = (int)$this->value;
-            return $this->isPositive ? $integer : -$integer;
+            return $this->positive ? $integer : -$integer;
         }
 
         $float = (float)$this->value;
-        return $this->isPositive ? $float : -$float;
+        return $this->positive ? $float : -$float;
     }
 }

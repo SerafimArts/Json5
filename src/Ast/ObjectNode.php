@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Contracts\Attribute\Verify;
 use Serafim\Json5\Internal\Context;
 use Serafim\Json5\DecodeFlag;
 
@@ -24,8 +25,11 @@ final class ObjectNode extends Expression
      * @param positive-int $offset
      * @param array<array-key, ObjectMemberNode> $pairs
      */
-    public function __construct(int $offset, private array $pairs)
-    {
+    #[Verify('\PHPUnit\Framework\Assert::assertContainsOnlyInstancesOf(ObjectMemberNode::class, $pairs) or true')]
+    public function __construct(
+        int $offset,
+        private readonly array $pairs
+    ) {
         parent::__construct($offset);
     }
 

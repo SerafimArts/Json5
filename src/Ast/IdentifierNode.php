@@ -11,6 +11,7 @@ declare(strict_types=1);
 
 namespace Serafim\Json5\Ast;
 
+use Serafim\Contracts\Attribute\Verify;
 use Serafim\Json5\Internal\Context;
 
 /**
@@ -23,7 +24,8 @@ final class IdentifierNode extends Expression
      * @param positive-int|0 $offset
      * @param string $value
      */
-    public function __construct(int $offset, private string $value)
+    #[Verify('$value !== ""', 'Identifier cannot be empty')]
+    public function __construct(int $offset, private readonly string $value)
     {
         parent::__construct($offset);
     }
