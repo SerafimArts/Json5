@@ -1,26 +1,14 @@
 # JSON 5
 
 <p align="center">
-    <a href="https://github.com/SerafimArts/Json5/actions">
-        <img src="https://github.com/SerafimArts/Json5/workflows/build/badge.svg" />
-    </a>
+    <a href="https://github.com/SerafimArts/Json5/actions"><img src="https://github.com/SerafimArts/Json5/workflows/build/badge.svg" /></a>
 </p>
 <p align="center">
-    <a href="https://packagist.org/packages/serafim/json5">
-        <img src="https://poser.pugx.org/serafim/json5/require/php?style=for-the-badge" alt="Latest Stable Version" />
-    </a>
-    <a href="https://packagist.org/packages/serafim/json5">
-        <img src="https://poser.pugx.org/serafim/json5/version?style=for-the-badge" alt="Latest Stable Version" />
-    </a>
-    <a href="https://packagist.org/packages/serafim/json5">
-        <img src="https://poser.pugx.org/serafim/json5/v/unstable?style=for-the-badge" alt="Latest Unstable Version" />
-    </a>
-    <a href="https://packagist.org/packages/serafim/json5">
-        <img src="https://poser.pugx.org/serafim/json5/downloads?style=for-the-badge" alt="Total Downloads" />
-    </a>
-    <a href="https://raw.githubusercontent.com/SerafimArts/Json5/master/LICENSE.md">
-        <img src="https://poser.pugx.org/serafim/json5/license?style=for-the-badge" alt="License MIT" />
-    </a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/require/php?style=for-the-badge" alt="Latest Stable Version" /></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/version?style=for-the-badge" alt="Latest Stable Version" /></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/v/unstable?style=for-the-badge" alt="Latest Unstable Version" /></a>
+    <a href="https://packagist.org/packages/serafim/json5"><img src="https://poser.pugx.org/serafim/json5/downloads?style=for-the-badge" alt="Total Downloads" /></a>
+    <a href="https://raw.githubusercontent.com/SerafimArts/Json5/master/LICENSE.md"><img src="https://poser.pugx.org/serafim/json5/license?style=for-the-badge" alt="License MIT" /></a>
 </p>
 
 The JSON5 Data Interchange Format (JSON5) is a superset of [JSON] that aims to
